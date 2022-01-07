@@ -31,8 +31,8 @@ data that uses computer vision techniques that can naturally deal with large amo
 Dependencies:
 
 * Python 3 (or superior)
-* TensorFlow
-* Keras
+* TensorFlow 2.0
+  * Keras
 * Scikit-Image
 * Numpy
 
