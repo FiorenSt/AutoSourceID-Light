@@ -1,6 +1,6 @@
 # AutoSourceID-Light
 
-
+![alt text](https://github.com/FiorenSt/AutoSourceID-Light/Plots/OpticalImagePatch.png)
 
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/FiorenSt/AutoSourceID-Light?style=plastic)
