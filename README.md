@@ -37,7 +37,6 @@ Dependencies:
 * Scikit-Image
 * Numpy
 
-ASID-L is built with Tensorflow 
 
 
 ## Usage
