@@ -66,7 +66,3 @@ The last section of a high-quality README file is the license. This lets other d
 If your project has a lot of features, list them here.
 -->
 
-## Tests
-<!--
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.
--->
