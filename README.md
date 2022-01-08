@@ -22,6 +22,7 @@ data that uses computer vision techniques that can naturally deal with large amo
 
 ## Table of Contents 
 - [Installation](#installation)
+- [Step-by-step](#step-by-step)
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
@@ -42,6 +43,23 @@ Dependencies:
 * Numpy
 
 
+## Step-by-step
+Training set: 
+ * Load image
+ * Normalize
+ * 256x256 pathces
+
+U-Net
+ * Load mode
+ * OR
+ * Specific U-Net structure
+ 
+Laplacian of Gaussian
+ * Threshold and sigma parameters 
+ 
+Output
+ * Catalog of sources
+
 
 ## Usage
 <!--
@@ -51,7 +69,6 @@ To add a screenshot, create an `assets/images` folder in your repository and upl
     ![alt text](assets/images/screenshot.png)
     ```
 -->
-
 
 ## Credits
 <!--
