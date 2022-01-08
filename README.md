@@ -8,11 +8,12 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/FiorenSt/AutoSourceID-Light?style=plastic)
 ![GitHub last commit](https://img.shields.io/github/last-commit/FiorenSt/AutoSourceID-Light?color=red&style=plastic)
 
+<!--
 ![GitHub stars](https://img.shields.io/github/stars/FiorenSt/AutoSourceID-Light?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/FiorenSt/AutoSourceID-Light?style=social)
 ![GitHub watchers](https://img.shields.io/github/watchers/FiorenSt/AutoSourceID-Light?style=social)
 ![GitHub followers](https://img.shields.io/github/followers/FiorenSt?style=social)
-
+-->
 
 
 
