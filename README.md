@@ -45,9 +45,12 @@ Dependencies:
 
 
 ## Step-by-step
+Here we introduce in a simplified version all the steps of ASID-L, for more detailed information check out the ASID-L paper link.
+
+Training Set
+
 The training, test and validation set are images from the MeerLICHT telescope while the locations are obtained from GAIA EDR3.
 Although important, the user can skip this step being the U-Net already trained for a series of different SNRs thresholds.
-
 The training set is made of 3 10496x10496 optical fields divided in 5043 patches of 256x256. Appriximately 80% training, 10% test and 10% validation.
 A normalization step is applied to each field separately.
 A U_net also needs the mask training, test and validation set. This is made stargting from GAIA EDR3 locations and then patchified in the same way as the optical images.
