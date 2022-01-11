@@ -1,4 +1,5 @@
-# AutoSourceID-Light
+<img src=https://see.fontimg.com/api/renderfont4/Ea5PW/eyJyIjoiZnMiLCJoIjo2OSwidyI6MTAwMCwiZnMiOjY5LCJmZ2MiOiIjRkZGRkZGIiwiYmdjIjoiIzExMDAwMCIsInQiOjF9/QXV0b1NvdXJjZUlELUxpZ2h0/ductape-to-regular.png>
+
 
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/OpticalImagePatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/PredictedMaskPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGOnOptical.png " width=25% height=25%>
 
