@@ -1,5 +1,9 @@
-from GITHUB_PROVVISORY.Training_Test_ValidationSet import *
-from GITHUB_PROVVISORY.U_Net import *
-from GITHUB_PROVVISORY.RUN_UNET_fromScratch import *
+import sys
+from LOAD_UNET import *
+from Training_Test_ValidationSet import *
 
-RUN_UNET(snr_threshold=2,epochs=2)
+
+U_net = LOAD_UNET('trained_snr0.h5')
+
+training, training_mask, test, test_mask, validation, validation_mask = load_train_images(2)
+pred = U_net.predict(x=test)

@@ -8,7 +8,7 @@ import random
 ##LOAD 3 FIELDS AND CREATE MASKS
 
 def load_train_images(snr_threshold):
-    DATA_PATH = 'GITHUB_PROVVISORY/Training Set/'
+    DATA_PATH = 'Training Set/'
 
     images = np.zeros((10560, 10560), np.float32)
     fit = fits.open(DATA_PATH + 'ML1_20200530_200136_red.fits')

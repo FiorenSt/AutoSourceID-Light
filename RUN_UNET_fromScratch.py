@@ -1,10 +1,14 @@
-def RUN_UNET(snr_threshold,epochs):
-    training, training_mask, test, test_mask, validation, validation_mask = load_train_images(snr_threshold)
+import sys
+from U_Net import *
+from Training_Test_ValidationSet import *
+
+
+def RUN_UNET(snr_threshold=2,epochs=2):
 
     ######################################################
     # Build U-Net
     ######################################################
-    from tensorflow.python.keras.callbacks import ModelCheckpoint
+    training, training_mask, test, test_mask, validation, validation_mask = load_train_images(snr_threshold)
 
     IMG_WIDTH = training.shape[1]
     IMG_HEIGHT = training.shape[2]
@@ -25,7 +29,7 @@ def RUN_UNET(snr_threshold,epochs):
     #################################
 
     reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.8, patience=5, min_lr=1e-6, verbose=1)
-    save_checkpoint3 = tf.keras.callbacks.ModelCheckpoint('GITHUB_PROVVISORY/MODELS/256x256/dice_BCE_loss_200epochs_snr.h5', verbose=1, save_best_only=True, monitor='val_loss')
+    save_checkpoint3 = tf.keras.callbacks.ModelCheckpoint('MODELS/FROM_SCRATCH/dice_BCE_loss_200epochs.h5', verbose=1, save_best_only=True, monitor='val_loss')
 
     U_net.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=5e-4), loss=dice_BCE_loss, metrics=['accuracy' , dice_coeff])
     U_net.summary()
@@ -38,4 +42,11 @@ def RUN_UNET(snr_threshold,epochs):
                                     callbacks=[save_checkpoint3, reduce_lr])
 
 
-    return history
+
+
+
+
+if __name__ == "__main__":
+    snr_threshold = int(sys.argv[1])
+    epochs = int(sys.argv[2])
+    RUN_UNET(snr_threshold=snr_threshold,epochs=epochs)
