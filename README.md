@@ -45,17 +45,37 @@ Dependencies:
 
 
 ## Step-by-step
-Training set: 
- * Load image
- * Normalize
- * 256x256 pathces
+The training, test and validation set are images from the MeerLICHT telescope while the locations are obtained from GAIA EDR3.
+Although important, the user can skip this step being the U-Net already trained for a series of different SNRs thresholds.
+
+The training set is made of 3 10496x10496 optical fields divided in 5043 patches of 256x256. Appriximately 80% training, 10% test and 10% validation.
+A normalization step is applied to each field separately.
+A U_net also needs the mask training, test and validation set. This is made stargting from GAIA EDR3 locations and then patchified in the same way as the optical images.
+
 
 U-Net
- * Load mode
- * OR
+
+The User can decide to either load one of the pre-trained models at different SNRs, or run the U-Net from scratch with new parameters choices:
+ * Load model
+ ```
+ python LOAD_UNET.py "filename"
+ ```
  * Specific U-Net structure
+ Run the below command to moderate changes, as the number of epochs and the cut od SNR for the training set. 
  
-Laplacian of Gaussian
+ ```
+ python RUN_UNET_fromScratch.py 'snr_threshold' 'epochs'
+ ```
+ Modify the file U_Net.py for major changes in the U-Net structure, as the number of layers etc.
+ 
+ 
+ * Predict on 3 test images
+ Benchmark the results on 3 different images of the test sets chosen by their sources density.
+ 
+ 
+ 
+ 
+ Laplacian of Gaussian
  * Threshold and sigma parameters 
  
 Output
