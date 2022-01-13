@@ -1,16 +1,15 @@
-<img src=https://see.fontimg.com/api/renderfont4/qZWEx/eyJyIjoiZnMiLCJoIjo5MCwidyI6MTAwMCwiZnMiOjkwLCJmZ2MiOiIjQ0IxRTFFIiwiYmdjIjoiIzAzMDAwMCIsInQiOjF9/QXV0b1NvdXJjZUlELUxpZ2h0/beuna-line-regular.png>
 
-
-<img src=https://see.fontimg.com/api/renderfont4/0WO1P/eyJyIjoiZnMiLCJoIjoxMDAsInciOjEwMDAsImZzIjoxMDAsImZnYyI6IiNFNjA0MDQiLCJiZ2MiOiIjMEMwMDAwIiwidCI6MX0/QXV0b1NvdXJjZUlELUxpZ2h0/godofthunder.png>
-
-
-<img src=https://see.fontimg.com/api/renderfont4/KpAp/eyJyIjoiZnMiLCJoIjo4OSwidyI6MTAwMCwiZnMiOjg5LCJmZ2MiOiIjRkIwMDAwIiwiYmdjIjoiIzBDMDAwMCIsInQiOjF9/QXV0b1NvdXJjZUlELUxpZ2h0/kg-second-chances-sketch.png>
-
+<img src=https://see.fontimg.com/api/renderfont4/qZWEx/eyJyIjoiZnMiLCJoIjoxMDAsInciOjEwMDAsImZzIjoxMDAsImZnYyI6IiMwRjlCRkEiLCJiZ2MiOiIjMEMwMDAwIiwidCI6MX0/QXV0b1NvdXJjZUlELUxpZ2h0/beuna-line-regular.png>
 
 <img src=https://see.fontimg.com/api/renderfont4/0WO1P/eyJyIjoiZnMiLCJoIjoxMDAsInciOjEwMDAsImZzIjoxMDAsImZnYyI6IiMwRjlCRkEiLCJiZ2MiOiIjMEMwMDAwIiwidCI6MX0/QXV0b1NvdXJjZUlELUxpZ2h0/godofthunder.png>
 
 
-<img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/logo_size2.jpg>
+<img src=https://see.fontimg.com/api/renderfont4/KpAp/eyJyIjoiZnMiLCJoIjoxMDAsInciOjEwMDAsImZzIjoxMDAsImZnYyI6IiMwRjlCRkEiLCJiZ2MiOiIjMEMwMDAwIiwidCI6MX0/QXV0b1NvdXJjZUlELUxpZ2h0/kg-second-chances-sketch.png>
+
+
+
+
+<img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/ASID.jpg width=10% height=10%> <img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/ASID_L.jpg width=10% height=10%>
 
 
 
