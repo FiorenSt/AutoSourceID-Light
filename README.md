@@ -7,7 +7,7 @@
 <img src=https://see.fontimg.com/api/renderfont4/KpAp/eyJyIjoiZnMiLCJoIjo4OSwidyI6MTAwMCwiZnMiOjg5LCJmZ2MiOiIjRkIwMDAwIiwiYmdjIjoiIzBDMDAwMCIsInQiOjF9/QXV0b1NvdXJjZUlELUxpZ2h0/kg-second-chances-sketch.png>
 
 
-
+<img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/logo_size2.jpg>
 
 
 
