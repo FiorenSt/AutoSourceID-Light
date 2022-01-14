@@ -7,8 +7,7 @@
 
 
 
-<img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/ASID.jpg width=10% height=10%> <img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/ASID_L.jpg width=10% height=10%>
-
+<img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/LOGO.PNG width=25% height=25%> 
 
 
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/OpticalImagePatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/PredictedMaskPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGOnOptical.png " width=25% height=25%>
