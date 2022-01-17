@@ -10,7 +10,11 @@
 <!--<img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/ASID.PNG width=25% height=25%> <img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/ASID-L.PNG width=25.5% height=25%> 
 -->
 
-<img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/OpticalImagePatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/PredictedMaskPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGOnOptical.png " width=25% height=25%>
+<!--<img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/OpticalImagePatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/PredictedMaskPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGOnOptical.png " width=25% height=25%> -->
+
+<img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/OpticalImagePatch.png " width=50% height=50%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGOnOptical.png " width=50% height=50%> 
+
+
 
 
 
@@ -55,7 +59,7 @@ Dependencies:
 
 
 ## Step-by-step
-Here we introduce in a simplified version all the steps of ASID-L, for more detailed information check out the ASID-L paper link.
+Here we introduce a simplified version of all the steps of ASID-L, for more detailed information check out the ASID-L paper.
 
 Training Set
 
@@ -84,7 +88,6 @@ The User can decide to either load one of the pre-trained models at different SN
  
  * Predict on 3 test images
  Benchmark the results on 3 different images of the test sets chosen by their sources density.
- 
  
  
  
