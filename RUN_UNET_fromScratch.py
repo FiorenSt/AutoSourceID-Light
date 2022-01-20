@@ -29,7 +29,7 @@ def RUN_UNET(snr_threshold=2,epochs=2):
     #################################
 
     reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.8, patience=5, min_lr=1e-6, verbose=1)
-    save_checkpoint3 = tf.keras.callbacks.ModelCheckpoint('MODELS/FROM_SCRATCH/dice_BCE_loss_200epochs.h5', verbose=1, save_best_only=True, monitor='val_loss')
+    save_checkpoint3 = tf.keras.callbacks.ModelCheckpoint('MODELS/FROM_SCRATCH/dice_BCE_loss_200epochs.h5', verbose=1, save_best_only=True, save_weights_only=True, monitor='val_loss')
 
     U_net.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=5e-4), loss=dice_BCE_loss, metrics=['accuracy' , dice_coeff])
     U_net.summary()

@@ -4,7 +4,7 @@ from joblib import Parallel, delayed
 
 
 def task(image,i):
-    blobs_log = blob_log(image, min_sigma=1.38, max_sigma=1.55, num_sigma=5, threshold=.1,
+    blobs_log = blob_log(image, min_sigma=1.38, max_sigma=1.55, num_sigma=5, threshold=.2,
                          exclude_border=False, overlap=0.9)
     x_idx = (i % 41) * 256 + 32
     y_idx = int(i / 41) * 256 + 32
