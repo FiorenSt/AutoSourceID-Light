@@ -11,7 +11,7 @@ def load_train_images(snr_threshold):
     DATA_PATH = 'Training Set/'
 
     images = np.zeros((10560, 10560), np.float32)
-    fit = fits.open(DATA_PATH + 'ML1_20200530_200136_red.fits')
+    fit = fits.open(DATA_PATH + 'ML1_20200530_200136_red_cosmics_nobkgsub.fits')
     images[:, :] = fit[0].data
 
     images = images[32:10528, 32:10528]
@@ -50,7 +50,7 @@ def load_train_images(snr_threshold):
     ########################################################################################################################
 
     images = np.zeros((10560, 10560), np.float32)
-    fit = fits.open(DATA_PATH + 'ML1_20210312_175442_red.fits')
+    fit = fits.open(DATA_PATH + 'ML1_20210312_175442_red_cosmics_nobkgsub.fits')
     images[:, :] = fit[0].data
 
     images = images[32:10528, 32:10528]
@@ -86,48 +86,11 @@ def load_train_images(snr_threshold):
     mask = pat.patchify(mask, (256, 256), step=256)
     mask175442 = mask.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
 
-    ###################################################################################################
 
-    #images = np.zeros((10560, 10560), np.float32)
-    #fit = fits.open(DATA_PATH + 'ML1_20210330_183742_red.fits')
-    #images[:, :] = fit[0].data
-
-    #images = images[32:10528, 32:10528]
-    #images = (images - np.mean(images)) / np.sqrt(np.var(images))
-
-    #patches = pat.patchify(images, (256, 256), step=256)
-    #patches183742 = patches.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
-
-    ##################REAL MASK
-    #red_cat = fits.open(DATA_PATH + 'ML1_20210330_183742_GaiaEDR3_cat_SNR_redimage.fits')
-
-    #x_pos = red_cat[1].data['X_POS'] - 1
-    #y_pos = red_cat[1].data['Y_POS'] - 1
-
-    #snr = red_cat[1].data['snr']
-
-    #x_pos = x_pos[snr >= snr_threshold]
-    #y_pos = y_pos[snr >= snr_threshold]
-
-    #positions = np.vstack((x_pos, y_pos)).T
-
-    #mask = np.zeros((10560, 10560), np.uint8)
-
-    #array_of_tuples = map(tuple, np.around(positions).astype(int))
-    #locations = tuple(array_of_tuples)
-
-    #for location in locations:
-    #    cv2.circle(mask, location, 2, (1, 1, 1), -1)
-
-    #mask = mask[32:10528, 32:10528]
-
-    #mask = pat.patchify(mask, (256, 256), step=256)
-    #mask183742 = mask.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
-
-    ###############################################################
+    ########################################################################################################################
 
     images = np.zeros((10560, 10560), np.float32)
-    fit = fits.open(DATA_PATH + 'ML1_20210331_174042_red.fits')
+    fit = fits.open(DATA_PATH + 'ML1_20210331_174042_red_cosmics_nobkgsub.fits')
     images[:, :] = fit[0].data
 
     images = images[32:10528, 32:10528]
@@ -170,11 +133,10 @@ def load_train_images(snr_threshold):
     training_mask = np.row_stack((mask200136, mask174042, mask175442))  ## REMOVED
 
     #############################################################   TEST SET   #####################################################################################
-
     random.seed(2)
 
-    index1 = [80, 800, 1000]
-    index2 = random.sample(range(0, 5043), 1005)
+    index1 = [1, 800, 1000]
+    index2 = random.sample(range(0, 5043), 502)
     index = index1 + index2
 
     test = training[index, :, :, :]
@@ -184,10 +146,12 @@ def load_train_images(snr_threshold):
     training = np.delete(training, (index), axis=0)
     training_mask = np.delete(training_mask, (index), axis=0)
 
+    training.shape
+
     #############################################################  VALIDATION SET ######################################################
 
     random.seed(1)
-    index = random.sample(range(0, 4035), 1007)
+    index = random.sample(range(0, 4539), 506)
 
     validation = training[index, :, :, :]
     validation_mask = training_mask[index, :, :, :]
