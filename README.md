@@ -97,8 +97,13 @@ _Below is an example of how you can instruct your audience on installing and set
 * Python 3 (or superior)
 * TensorFlow 2.0
   * Keras
-* Scikit-Image
-* Numpy
+* Scikit-Image Version?
+* Numpy Verions?
+* Joblib Version?
+* Patchify
+* OpenCV
+* Astropy
+
 
 
 # Usage
