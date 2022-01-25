@@ -166,7 +166,6 @@ The last section of a high-quality README file is the license. This lets other d
 ## Features
 
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTFieldM16.png " >
-<img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTFieldM13.png " >
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTField10396.png " >
 
 
