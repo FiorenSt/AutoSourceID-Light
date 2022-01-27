@@ -17,38 +17,104 @@
 
 
 
-## Description
+# Description
 With the ever-increasing survey speed of optical wide-field telescopes, rapid and reliable source localization is paramount. We propose a new way to analyze optical imaging
 data that uses computer vision techniques that can naturally deal with large amounts of data. We present AutoSourceID-Light (ASID-L), an innovative framework for rapidly localizing sources in optical images.
 
 ## Table of Contents 
 - [Installation](#installation)
-- [Step-by-step](#step-by-step)
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
 
-## Installation
+
+<!-- TABLE OF CONTENTS -->
+<!-- 
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
+--> 
+
+
+
+
+# Installation
 <img src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white&style=plastic"/> ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white&style=plastic)
 ![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white&style=plastic)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white&style=plastic)
 ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white&style=plastic)
 
 
-Dependencies:
+_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/FiorenSt/AutoSourceID-Light.git
+   ```
+2. Download Zenodo folder for training/test/validation sets
+   ```sh
+   curl https://zenodo.org/...
+   ```
+3. Save the files in the folder Training Set
+
+# Dependencies:
 
 * Python 3 (or superior)
 * TensorFlow 2.0
   * Keras
-* Scikit-Image
-* Numpy
+* Scikit-Image Version?
+* Numpy Verions?
+* Joblib Version?
+* Patchify
+* OpenCV
+* Astropy
 
 
+
+<<<<<<< HEAD
 ## Step-by-step
 Training set: 
  * Load image
  * Normalize
  * 256x256 pathces
+=======
+# Usage
+Here we introduce a simplified version of all the steps of ASID-L, for more detailed information check out the ASID-L paper.
+
+
+
+
+
+Training Set
+
+The training, test and validation set are images from the MeerLICHT telescope while the locations are obtained from GAIA EDR3.
+Although important, the user can skip this step being the U-Net already trained for a series of different SNRs thresholds.
+The training set is made of 3 10496x10496 optical fields divided in 5043 patches of 256x256. Appriximately 80% training, 10% test and 10% validation.
+A normalization step is applied to each field separately.
+A U_net also needs the mask training, test and validation set. This is made stargting from GAIA EDR3 locations and then patchified in the same way as the optical images.
+
+>>>>>>> c8e7fd4339a668db5f904a5d4b65344959edce04
 
 U-Net
  * Load mode
@@ -61,15 +127,6 @@ Laplacian of Gaussian
 Output
  * Catalog of sources
 
-
-## Usage
-<!--
-Provide instructions and examples for use. Include screenshots as needed.
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
--->
 
 ## Credits
 <!--
@@ -85,7 +142,8 @@ The last section of a high-quality README file is the license. This lets other d
 
 
 ## Features
-<!--
-If your project has a lot of features, list them here.
--->
+
+<img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTFieldM16.png " >
+<img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTField10396.png " >
+
 
