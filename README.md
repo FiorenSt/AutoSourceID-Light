@@ -86,9 +86,11 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    git clone https://github.com/FiorenSt/AutoSourceID-Light.git
    ```
-2. Download Zenodo folder for training/test/validation sets
+2. Download Zenodo folder for training/test/validation sets 
+   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5902893.svg)](https://doi.org/10.5281/zenodo.5902893)
+
    ```sh
-   curl https://zenodo.org/...
+   curl https://doi.org/10.5281/zenodo.5902893
    ```
 3. Save the files in the folder Training Set
 
