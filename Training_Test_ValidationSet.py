@@ -11,7 +11,7 @@ def load_train_images(snr_threshold):
     DATA_PATH = 'Training Set/'
 
     images = np.zeros((10560, 10560), np.float32)
-    fit = fits.open(DATA_PATH + 'ML1_20200530_200136_red_cosmics_nobkgsub.fits')
+    fit = fits.open(DATA_PATH + 'ML1_20200601_191800_red_cosmics_nobkgsub.fits')
     images[:, :] = fit[0].data
 
     images = images[32:10528, 32:10528]
@@ -21,7 +21,7 @@ def load_train_images(snr_threshold):
     patches200136 = patches.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
 
     ##################REAL MASK
-    red_cat = fits.open(DATA_PATH + 'ML1_20200530_200136_GaiaEDR3_cat_SNR_redimage.fits')
+    red_cat = fits.open(DATA_PATH + 'ML1_20200601_191800_GaiaEDR3_cat_SNR_redimage.fits')
 
     x_pos = red_cat[1].data['X_POS'] - 1
     y_pos = red_cat[1].data['Y_POS'] - 1
@@ -50,7 +50,7 @@ def load_train_images(snr_threshold):
     ########################################################################################################################
 
     images = np.zeros((10560, 10560), np.float32)
-    fit = fits.open(DATA_PATH + 'ML1_20210312_175442_red_cosmics_nobkgsub.fits')
+    fit = fits.open(DATA_PATH + 'ML1_20210401_173445_red_cosmics_nobkgsub.fits')
     images[:, :] = fit[0].data
 
     images = images[32:10528, 32:10528]
@@ -61,7 +61,7 @@ def load_train_images(snr_threshold):
     patches175442 = patches.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
 
     ##################REAL MASK
-    red_cat = fits.open(DATA_PATH + 'ML1_20210312_175442_GaiaEDR3_cat_SNR_redimage.fits')
+    red_cat = fits.open(DATA_PATH + 'ML1_20210401_173445_GaiaEDR3_cat_SNR_redimage.fits')
 
     x_pos = red_cat[1].data['X_POS'] - 1
     y_pos = red_cat[1].data['Y_POS'] - 1
@@ -90,7 +90,7 @@ def load_train_images(snr_threshold):
     ########################################################################################################################
 
     images = np.zeros((10560, 10560), np.float32)
-    fit = fits.open(DATA_PATH + 'ML1_20210331_174042_red_cosmics_nobkgsub.fits')
+    fit = fits.open(DATA_PATH + 'ML1_20210910_022724_red_cosmics_nobkgsub.fits')
     images[:, :] = fit[0].data
 
     images = images[32:10528, 32:10528]
@@ -101,7 +101,7 @@ def load_train_images(snr_threshold):
     patches174042 = patches.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
 
     ##################REAL MASK
-    red_cat = fits.open(DATA_PATH + 'ML1_20210331_174042_GaiaEDR3_cat_SNR_redimage.fits')
+    red_cat = fits.open(DATA_PATH + 'ML1_20210910_022724_GaiaEDR3_cat_SNR_redimage.fits')
 
     x_pos = red_cat[1].data['X_POS'] - 1
     y_pos = red_cat[1].data['Y_POS'] - 1
