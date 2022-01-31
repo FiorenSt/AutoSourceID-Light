@@ -32,6 +32,7 @@ data that uses computer vision techniques that can naturally deal with large amo
 - [Installation](#installation)
 - [Usage](#usage)
 - [License](#license)
+- [Features](#features)
 
 
 # Installation
