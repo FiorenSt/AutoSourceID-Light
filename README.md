@@ -15,13 +15,6 @@
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/OpticalImagePatch.png " width=50% height=50%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGOnOptical.png " width=50% height=50%> 
 
 
-
-
-
-![GitHub repo size](https://img.shields.io/github/repo-size/FiorenSt/AutoSourceID-Light?style=plastic)
-![GitHub top language](https://img.shields.io/github/languages/top/FiorenSt/AutoSourceID-Light?style=plastic)
-![GitHub last commit](https://img.shields.io/github/last-commit/FiorenSt/AutoSourceID-Light?color=red&style=plastic)
-
 <!--
 ![GitHub stars](https://img.shields.io/github/stars/FiorenSt/AutoSourceID-Light?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/FiorenSt/AutoSourceID-Light?style=social)
@@ -38,134 +31,84 @@ data that uses computer vision techniques that can naturally deal with large amo
 ## Table of Contents 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
 - [License](#license)
-
-
-<!-- TABLE OF CONTENTS -->
-<!-- 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
---> 
-
-
+- [Features](#features)
 
 
 # Installation
-<img src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white&style=plastic"/> ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white&style=plastic)
-![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white&style=plastic)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white&style=plastic)
-![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white&style=plastic)
 
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+_Follow the instructions below to download and start using ASID-L._
 
 1. Clone the repo
    ```sh
    git clone https://github.com/FiorenSt/AutoSourceID-Light.git
    ```
 2. Download Zenodo folder for training/test/validation sets 
-   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5902893.svg)](https://doi.org/10.5281/zenodo.5902893)
-
    ```sh
    curl https://doi.org/10.5281/zenodo.5902893
    ```
-3. Save the files in the folder Training Set
+   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5902893.svg)](https://doi.org/10.5281/zenodo.5902893)
+
+3. Save the files in a folder "TrainingSet" and include the folder in the ASID-L repository
 
 # Dependencies:
+<img src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white&style=plastic"/> ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white&style=plastic)
+![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white&style=plastic)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white&style=plastic)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white&style=plastic)
 
 * Python 3 (or superior)
-* TensorFlow 2.0
-  * Keras
-* Scikit-Image Version?
-* Numpy Verions?
-* Joblib Version?
-* Patchify
-* OpenCV
-* Astropy
+* TensorFlow 2.5
+* Scikit-Image 0.18.1
+* Numpy 1.20.3
+* Joblib 1.0.1
+* Patchify 0.2.3
+* OpenCV 4.5.1
+* Astropy 4.2.1
 
 
 
 # Usage
-Here we introduce a simplified version of all the steps of ASID-L, for more detailed information check out the ASID-L paper.
-
-
-
-
-
-Training Set
-
-The training, test and validation set are images from the MeerLICHT telescope while the locations are obtained from GAIA EDR3.
-Although important, the user can skip this step being the U-Net already trained for a series of different SNRs thresholds.
-The training set is made of 3 10496x10496 optical fields divided in 5043 patches of 256x256. Appriximately 80% training, 10% test and 10% validation.
-A normalization step is applied to each field separately.
-A U_net also needs the mask training, test and validation set. This is made stargting from GAIA EDR3 locations and then patchified in the same way as the optical images.
-
-
-U-Net
-
-The User can decide to either load one of the pre-trained models at different SNRs, or run the U-Net from scratch with new parameters choices:
- * Load model
+The use of the pre-trained ASID-L is straight forward: 
+* Load the image and the pre-trained model
  ```
- python LOAD_UNET.py './MODELS/TrainedModel.h5'
+ python ASID-L.py 'DATA_PATH' 'MODEL_PATH'
  ```
- * Specific U-Net structure
- Run the below command to moderate changes, as the number of epochs and the cut od SNR for the training set. 
- 
+ * A catalog 'coordinates.txt' of the localized sources will be created in the folder RESULTS.
+
+
+For more detailed information on the trained model check out the ASID-L paper.
+
+
+### Train U-Net from scratch
+
+* Specify parameters of your choice, such as the number of epochs, the layers and the SNR cut-off modifying the file 'U_Net.py' 
+
+* To train the U-Net without additional changes run:
  ```
- python RUN_UNET_fromScratch.py 'snr_threshold' 'epochs'
+ python ASID-L.py 'DATA_PATH' 'MODEL_PATH' 'load_model=False'
  ```
- Modify the file U_Net.py for major changes in the U-Net structure, as the number of layers etc.
  
- 
- * Predict on 3 test images
- Benchmark the results on 3 different images of the test sets chosen by their sources density.
- 
- 
- 
- Laplacian of Gaussian
- * Threshold and sigma parameters 
- 
-Output
- * Catalog of sources
+# License
+Copyright 2022 Fiorenzo Stoppa
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 
-## Credits
-<!--
-List your collaborators, if any, with links to their GitHub profiles.
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-If you followed tutorials, include links to those here as well.
--->
-
-## License
-<!--
-The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
--->
 
 
-## Features
+# Features
 
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTFieldM16.png " >
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTField10396.png " >
