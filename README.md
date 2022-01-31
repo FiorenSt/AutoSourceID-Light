@@ -129,7 +129,7 @@ U-Net
 The User can decide to either load one of the pre-trained models at different SNRs, or run the U-Net from scratch with new parameters choices:
  * Load model
  ```
- python LOAD_UNET.py "filename"
+ python LOAD_UNET.py './MODELS/TrainedModel.h5'
  ```
  * Specific U-Net structure
  Run the below command to moderate changes, as the number of epochs and the cut od SNR for the training set. 
