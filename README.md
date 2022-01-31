@@ -31,7 +31,6 @@ data that uses computer vision techniques that can naturally deal with large amo
 ## Table of Contents 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Credits](#credits)
 - [License](#license)
 
 
@@ -70,39 +69,26 @@ _Follow the instructions below to download and start using ASID-L._
 
 
 # Usage
-Here we introduce a simplified version of all the steps of ASID-L, for more detailed information check out the ASID-L paper.
-
-
-
-
-
-Training Set
-
-The training, test and validation set are images from the MeerLICHT telescope while the locations are obtained from GAIA EDR3.
-The training set is made of 3 10496x10496 field images divided in 5043 patches of 256x256 3 masks fields also patchified in the same way.
-
-U-Net
-
-You can decide to either load the pre-trained model at SNR=3, or run the U-Net from scratch with new parameters choices:
- 
- * Load model and predict the locations
+The use of the pre-trained ASID-L is straight forward: 
+* Load the image and the pre-trained model
  ```
  python ASID-L.py 'DATA_PATH' 'MODEL_PATH'
  ```
- A catalog 'coordinates.txt' of the localized sources will be created in the folder RESULTS.
+ * A catalog 'coordinates.txt' of the localized sources will be created in the folder RESULTS.
 
- 
- * Specific U-Net structure
- You can also train your own U-Net with specific paramters of your choice, such as the number of epochs and the SNR cut-off for the training set. 
- 
+
+For more detailed information on the trained model check out the ASID-L paper.
+
+
+### Train U-Net from scratch
+
+* Specify paramters of your choice, such as the number of epochs, the layers and the SNR cut-off modifying the file 'U_Net.py' 
+
+* To train the U-Net without additional changes run:
  ```
- python ASID-L.py 'DATA_PATH' 'MODEL_PATH' 'load_model=True'
+ python ASID-L.py 'DATA_PATH' 'MODEL_PATH' 'load_model=False'
  ```
  
- Modify the file U_Net.py for major changes in the U-Net structure, such as the number of layers etc.
- 
-
-
 ## License
 Copyright 2022 Fiorenzo Stoppa
 
