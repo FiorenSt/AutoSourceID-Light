@@ -45,12 +45,12 @@ _Follow the instructions below to download and start using ASID-L._
    git clone https://github.com/FiorenSt/AutoSourceID-Light.git
    ```
 2. Download Zenodo folder for training/test/validation sets 
-   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5902893.svg)](https://doi.org/10.5281/zenodo.5902893)
-
    ```sh
    curl https://doi.org/10.5281/zenodo.5902893
    ```
-3. Save the files in the folder Training Set
+   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5902893.svg)](https://doi.org/10.5281/zenodo.5902893)
+
+3. Save the files in a folder "Training Set" and include the folder in the ASID-L repository
 
 # Dependencies:
 <img src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white&style=plastic"/> ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white&style=plastic)
@@ -79,24 +79,22 @@ Here we introduce a simplified version of all the steps of ASID-L, for more deta
 Training Set
 
 The training, test and validation set are images from the MeerLICHT telescope while the locations are obtained from GAIA EDR3.
-Although important, the user can skip this step being the U-Net already trained for a series of different SNRs thresholds.
-The training set is made of 3 10496x10496 optical fields divided in 5043 patches of 256x256. Appriximately 80% training, 10% test and 10% validation.
-A normalization step is applied to each field separately.
-A U_net also needs the mask training, test and validation set. This is made stargting from GAIA EDR3 locations and then patchified in the same way as the optical images.
-
+The training set is made of 3 10496x10496 field images divided in 5043 patches of 256x256 3 masks fields also patchified in the same way.
 
 U-Net
 
-The User can decide to either load one of the pre-trained models at different SNRs, or run the U-Net from scratch with new parameters choices:
- * Load model
+You can decide to either load the pre-trained model at SNR=3, or run the U-Net from scratch with new parameters choices:
+ 
+ * Load model and predict the locations
  ```
- python LOAD_UNET.py './MODELS/TrainedModel.h5'
+ python ASID-L.py 'DATA_PATH' 'MODEL_PATH'
  ```
+ 
  * Specific U-Net structure
- Run the below command to moderate changes, as the number of epochs and the cut od SNR for the training set. 
+ You can also train your own U-Net with specific paramters of your choice, such as the number of epochs and the SNR cut-off for the training set. 
  
  ```
- python RUN_UNET_fromScratch.py 'snr_threshold' 'epochs'
+ python ASID-L.py 'snr_threshold' 'epochs'
  ```
  Modify the file U_Net.py for major changes in the U-Net structure, as the number of layers etc.
  
