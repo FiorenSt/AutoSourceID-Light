@@ -1,6 +1,20 @@
-# AutoSourceID-Light
 
-<img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/OpticalImagePatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/PredictedMaskPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGOnOptical.png " width=25% height=25%>
+<!--<img src=https://see.fontimg.com/api/renderfont4/qZWEx/eyJyIjoiZnMiLCJoIjoxMDAsInciOjEwMDAsImZzIjoxMDAsImZnYyI6IiMwRjlCRkEiLCJiZ2MiOiIjMEMwMDAwIiwidCI6MX0/QXV0b1NvdXJjZUlELUxpZ2h0/beuna-line-regular.png>
+-->
+
+<img src=https://see.fontimg.com/api/renderfont4/KpAp/eyJyIjoiZnMiLCJoIjoxMDAsInciOjEwMDAsImZzIjoxMDAsImZnYyI6IiMwRjlCRkEiLCJiZ2MiOiIjMEMwMDAwIiwidCI6MX0/QXV0b1NvdXJjZUlELUxpZ2h0/kg-second-chances-sketch.png>
+
+
+
+
+<!--<img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/ASID.PNG width=25% height=25%> <img src=https://github.com/FiorenSt/AutoSourceID-Light/blob/main/ASID-L.PNG width=25.5% height=25%> 
+-->
+
+<!--<img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/OpticalImagePatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/PredictedMaskPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGPatch.png " width=25% height=25%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGOnOptical.png " width=25% height=25%> -->
+
+<img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/OpticalImagePatch.png " width=50% height=50%><img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/LoGOnOptical.png " width=50% height=50%> 
+
+
 
 
 
@@ -72,9 +86,11 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    git clone https://github.com/FiorenSt/AutoSourceID-Light.git
    ```
-2. Download Zenodo folder for training/test/validation sets
+2. Download Zenodo folder for training/test/validation sets 
+   [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5902893.svg)](https://doi.org/10.5281/zenodo.5902893)
+
    ```sh
-   curl https://zenodo.org/...
+   curl https://doi.org/10.5281/zenodo.5902893
    ```
 3. Save the files in the folder Training Set
 
@@ -92,13 +108,6 @@ _Below is an example of how you can instruct your audience on installing and set
 
 
 
-<<<<<<< HEAD
-## Step-by-step
-Training set: 
- * Load image
- * Normalize
- * 256x256 pathces
-=======
 # Usage
 Here we introduce a simplified version of all the steps of ASID-L, for more detailed information check out the ASID-L paper.
 
@@ -114,14 +123,29 @@ The training set is made of 3 10496x10496 optical fields divided in 5043 patches
 A normalization step is applied to each field separately.
 A U_net also needs the mask training, test and validation set. This is made stargting from GAIA EDR3 locations and then patchified in the same way as the optical images.
 
->>>>>>> c8e7fd4339a668db5f904a5d4b65344959edce04
 
 U-Net
- * Load mode
- * OR
+
+The User can decide to either load one of the pre-trained models at different SNRs, or run the U-Net from scratch with new parameters choices:
+ * Load model
+ ```
+ python LOAD_UNET.py './MODELS/TrainedModel.h5'
+ ```
  * Specific U-Net structure
+ Run the below command to moderate changes, as the number of epochs and the cut od SNR for the training set. 
  
-Laplacian of Gaussian
+ ```
+ python RUN_UNET_fromScratch.py 'snr_threshold' 'epochs'
+ ```
+ Modify the file U_Net.py for major changes in the U-Net structure, as the number of layers etc.
+ 
+ 
+ * Predict on 3 test images
+ Benchmark the results on 3 different images of the test sets chosen by their sources density.
+ 
+ 
+ 
+ Laplacian of Gaussian
  * Threshold and sigma parameters 
  
 Output
@@ -145,5 +169,4 @@ The last section of a high-quality README file is the license. This lets other d
 
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTFieldM16.png " >
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTField10396.png " >
-
 
