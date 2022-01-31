@@ -89,26 +89,18 @@ You can decide to either load the pre-trained model at SNR=3, or run the U-Net f
  ```
  python ASID-L.py 'DATA_PATH' 'MODEL_PATH'
  ```
+ A catalog 'coordinates.txt' of the localized sources will be created in the folder RESULTS.
+
  
  * Specific U-Net structure
  You can also train your own U-Net with specific paramters of your choice, such as the number of epochs and the SNR cut-off for the training set. 
  
  ```
- python ASID-L.py 'snr_threshold' 'epochs'
+ python ASID-L.py 'DATA_PATH' 'MODEL_PATH' 'load_model=True'
  ```
- Modify the file U_Net.py for major changes in the U-Net structure, as the number of layers etc.
  
+ Modify the file U_Net.py for major changes in the U-Net structure, such as the number of layers etc.
  
- * Predict on 3 test images
- Benchmark the results on 3 different images of the test sets chosen by their sources density.
- 
- 
- 
- Laplacian of Gaussian
- * Threshold and sigma parameters 
- 
-Output
- * Catalog of sources
 
 
 ## Credits
@@ -122,6 +114,7 @@ If you followed tutorials, include links to those here as well.
 <!--
 The last section of a high-quality README file is the license. This lets other developers know what they can and cannot do with your project. If you need help choosing a license, refer to [https://choosealicense.com/](https://choosealicense.com/).
 -->
+
 
 
 ## Features
