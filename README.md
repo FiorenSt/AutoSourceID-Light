@@ -90,7 +90,7 @@ For more detailed information on the trained model check out the ASID-L paper.
  python ASID-L.py 'DATA_PATH' 'MODEL_PATH' 'load_model=False'
  ```
  
-## License
+# License
 Copyright 2022 Fiorenzo Stoppa
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -108,7 +108,7 @@ limitations under the License.
 
 
 
-## Features
+# Features
 
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTFieldM16.png " >
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTField10396.png " >
