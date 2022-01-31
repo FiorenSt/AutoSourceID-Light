@@ -2,13 +2,14 @@ import sys
 from U_Net import *
 
 
-def LOAD_UNET(): ### description format/whatever
-    ###########LOAD MODELS
-    return tf.keras.models.load_model(filepath='C:/Users/fiore/Desktop/UNI/Projects/Project7-PointSourcesIdentification/ASID-L/MODELS/TrainedModel.h5',custom_objects={'dice_coeff':dice_coeff},compile=False)
+#####################################
+#  LOAD U_NET MODULE FROM .h5 FILE  #
+#####################################
+
+def LOAD_UNET(filepath):
+    return tf.keras.models.load_model(filepath=filepath,custom_objects={'dice_coeff':dice_coeff},compile=False)
 
 
 if __name__ == "__main__":
-    file_name = sys.argv[1] ### 0 or 1?
-    print(file_name)
-    U_net = LOAD_UNET()
-    #pred = U_net.predict(x=test)
+    file_name = sys.argv[1]  #'./MODELS/TrainedModel.h5'
+    U_net = LOAD_UNET(filepath=file_name)

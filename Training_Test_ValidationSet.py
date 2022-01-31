@@ -5,7 +5,9 @@ import patchify as pat
 import random
 
 
-##LOAD 3 FIELDS AND CREATE MASKS
+#######################################################################
+#  LOADS THE 3 FIELDS AND CREATES TRAINING, TEST AND VALIDATION SETS  #
+#######################################################################
 
 def load_train_images(snr_threshold):
     DATA_PATH = 'Training Set/'

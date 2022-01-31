@@ -1,10 +1,14 @@
 import tensorflow as tf
 
 
+#####################
+#  U_NET STRUCTURE  #
+#####################
+
 def unet(inputs):
     s = inputs
 
-    # Contraction path
+    ### Encoder path
     c1 = tf.keras.layers.Conv2D(16, (3, 3), activation='relu', kernel_initializer='he_normal', padding='same')(s)
     c1 = tf.keras.layers.Dropout(0.1)(c1)
     c1 = tf.keras.layers.Conv2D(16, (3, 3), activation='relu', kernel_initializer='he_normal', padding='same')(c1)
@@ -29,7 +33,7 @@ def unet(inputs):
     c5 = tf.keras.layers.Dropout(0.3)(c5)
     c5 = tf.keras.layers.Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_normal', padding='same')(c5)
 
-    # Expansive path
+    ### Decoder path
     u6 = tf.keras.layers.Conv2DTranspose(128, (2, 2), strides=(2, 2), padding='same')(c5)
     u6 = tf.keras.layers.concatenate([u6, c4])
     c6 = tf.keras.layers.Conv2D(128, (3, 3), activation='relu', kernel_initializer='he_normal', padding='same')(u6)
@@ -60,8 +64,10 @@ def unet(inputs):
     return model
 
 
-###############################
-# Dice score as metric
+
+
+################################
+#  Dice coefficient as metric  #
 ################################
 
 def dice_coeff(y_true, y_pred, smooth=1e-4):
@@ -72,6 +78,10 @@ def dice_coeff(y_true, y_pred, smooth=1e-4):
     dice = (2. * intersection + smooth)/(union + smooth)
     return dice
 
+
+#########################################################
+#  Loss functionL: BinaryCrossentropy loss + Dice loss  #
+#########################################################
 
 def dice_BCE_loss(y_true, y_pred, smooth=1e-4):
     y_true = tf.cast(y_true, tf.float32)
