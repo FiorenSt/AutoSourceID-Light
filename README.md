@@ -83,7 +83,7 @@ For more detailed information on the trained model check out the ASID-L paper.
 
 ### Train U-Net from scratch
 
-* Specify paramters of your choice, such as the number of epochs, the layers and the SNR cut-off modifying the file 'U_Net.py' 
+* Specify parameters of your choice, such as the number of epochs, the layers and the SNR cut-off modifying the file 'U_Net.py' 
 
 * To train the U-Net without additional changes run:
  ```
