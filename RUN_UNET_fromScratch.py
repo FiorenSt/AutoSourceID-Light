@@ -9,7 +9,6 @@ from Training_Test_ValidationSet import *
 
 def RUN_UNET(training,training_mask,validation,validation_mask,epochs=2):
 
-
     IMG_WIDTH = 256
     IMG_HEIGHT = 256
     IMG_CHANNELS = 1
@@ -31,7 +30,6 @@ def RUN_UNET(training,training_mask,validation,validation_mask,epochs=2):
     ### Fit the Model
     history=U_net.fit(x=training, y=training_mask,validation_data= (validation,validation_mask), batch_size=32,epochs=epochs, verbose=1, shuffle=True,
                                     callbacks=[save_checkpoint3, reduce_lr])
-
 
 
 

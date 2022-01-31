@@ -1,6 +1,5 @@
 import tensorflow as tf
 
-
 #####################
 #  U_NET STRUCTURE  #
 #####################
@@ -62,8 +61,6 @@ def unet(inputs):
     model = tf.keras.Model(inputs=[inputs], outputs=[outputs])
 
     return model
-
-
 
 
 ################################
