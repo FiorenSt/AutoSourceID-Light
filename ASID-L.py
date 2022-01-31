@@ -10,13 +10,13 @@
 #
 
 
+
 import sys
 from Training_Test_ValidationSet import *
 from LOAD_UNET import *
 from LaplacianOfGaussian import *
 from LOAD_IMAGES import *
 from RUN_UNET_fromScratch import *
-
 
 
 def ASID_L(DATA_PATH, MODEL_PATH, load_model=True, snr_threshold=2, demo_plot=True):
@@ -32,23 +32,24 @@ def ASID_L(DATA_PATH, MODEL_PATH, load_model=True, snr_threshold=2, demo_plot=Tr
         RUN_UNET(training,training_mask,validation,validation_mask,epochs=2)
         exit()
 
+    ###U-Net prediction
     pred = U_net.predict(x=image_in_patches)  ### dim.: (..., 256, 256, 1)
 
     n_patches_x=int(dim1/256)
     n_patches_y=int(dim2/256)
 
+    ###Laplacian of Gaussian
     d=joblib_loop(pred=pred,n_patches_x=n_patches_x,n_patches_y=n_patches_y,CPUs=6)
     list = np.array([item for sublist in d for item in sublist]) + 1   ##+1 because coordinates start from 1, not 0
     np.savetxt('./RESULTS/coordinates.txt', list,delimiter=',', fmt='%i')
 
+
+    ###DEMO PLOT TO CHECK THE RESULTS
     if demo_plot:
         import matplotlib.pyplot as plt
         from astropy.visualization import ZScaleInterval as zscale
 
         blobs_log = blob_log(pred[100,:,:,0],min_sigma=1.38, max_sigma=1.55, num_sigma=5, threshold=.2,  exclude_border=False, overlap=0.9)
-
-        # Compute radii in the 3rd column.
-        blobs_log[:, 2] = blobs_log[:, 2] * np.sqrt(2)
 
         color = 'red'
 
@@ -62,7 +63,7 @@ def ASID_L(DATA_PATH, MODEL_PATH, load_model=True, snr_threshold=2, demo_plot=Tr
             ax.add_patch(c)
         plt.tight_layout()
         plt.draw()
-        plt.pause(15)
+        plt.pause(10)
 
 
 

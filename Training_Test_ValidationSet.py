@@ -12,24 +12,29 @@ import random
 def load_train_images(snr_threshold):
     DATA_PATH = 'Training Set/'
 
+    ###load image
     images = np.zeros((10560, 10560), np.float32)
     fit = fits.open(DATA_PATH + 'ML1_20200601_191800_red_cosmics_nobkgsub.fits')
     images[:, :] = fit[0].data
 
+    ###cut edges
     images = images[32:10528, 32:10528]
+
+    ###normalization
     images = (images - np.mean(images)) / np.sqrt(np.var(images))
 
+    ###make patches
     patches = pat.patchify(images, (256, 256), step=256)
-    patches200136 = patches.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
+    patches200136 = patches.reshape(1681, 256, 256, 1)  #dim: (1681, 256, 256, 1)
 
-    ##################REAL MASK
+    ###load locations
     red_cat = fits.open(DATA_PATH + 'ML1_20200601_191800_GaiaEDR3_cat_SNR_redimage.fits')
 
     x_pos = red_cat[1].data['X_POS'] - 1
     y_pos = red_cat[1].data['Y_POS'] - 1
 
+    ###save snr
     snr = red_cat[1].data['snr']
-
     x_pos = x_pos[snr >= snr_threshold]
     y_pos = y_pos[snr >= snr_threshold]
 
@@ -40,14 +45,16 @@ def load_train_images(snr_threshold):
     array_of_tuples = map(tuple, np.around(positions).astype(int))
     locations = tuple(array_of_tuples)
 
+    ###create mask
     for location in locations:
         cv2.circle(mask, location, 2, (1, 1, 1), -1)
 
     mask = mask[32:10528, 32:10528]
 
+    ###make patches for the masks
     mask = pat.patchify(mask, (256, 256), step=256)
-
     mask200136 = mask.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
+
 
     ########################################################################################################################
 
@@ -62,7 +69,7 @@ def load_train_images(snr_threshold):
 
     patches175442 = patches.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
 
-    ##################REAL MASK
+    ### MASK
     red_cat = fits.open(DATA_PATH + 'ML1_20210401_173445_GaiaEDR3_cat_SNR_redimage.fits')
 
     x_pos = red_cat[1].data['X_POS'] - 1
@@ -102,7 +109,7 @@ def load_train_images(snr_threshold):
 
     patches174042 = patches.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
 
-    ##################REAL MASK
+    #### MASK
     red_cat = fits.open(DATA_PATH + 'ML1_20210910_022724_GaiaEDR3_cat_SNR_redimage.fits')
 
     x_pos = red_cat[1].data['X_POS'] - 1
@@ -130,14 +137,14 @@ def load_train_images(snr_threshold):
     mask174042 = mask.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
 
     #################FINAL PATCHES AND MASKS
-    training = np.row_stack((patches200136, patches174042, patches175442))  ## REMOVED
+    training = np.row_stack((patches200136, patches174042, patches175442))
 
-    training_mask = np.row_stack((mask200136, mask174042, mask175442))  ## REMOVED
+    training_mask = np.row_stack((mask200136, mask174042, mask175442))
 
     #############################################################   TEST SET   #####################################################################################
     random.seed(2)
 
-    index1 = [1, 800, 1000]
+    index1 = [118, 800, 1000]
     index2 = random.sample(range(0, 5043), 502)
     index = index1 + index2
 
