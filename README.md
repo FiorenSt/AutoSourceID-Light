@@ -44,7 +44,7 @@ _Follow the instructions below to download and start using ASID-L._
    ```sh
    git clone https://github.com/FiorenSt/AutoSourceID-Light.git
    ```
-2. Download Zenodo folder for training/test/validation sets 
+2. Download the Zenodo folder for training/test/validation sets 
    ```sh
    curl https://doi.org/10.5281/zenodo.5902893
    ```
@@ -70,25 +70,46 @@ _Follow the instructions below to download and start using ASID-L._
 
 
 # Usage
+
 The use of the pre-trained ASID-L is straight forward: 
-* Load the image and the pre-trained model
- ```
- python ASID-L.py 'DATA_PATH' 'MODEL_PATH'
- ```
- * A catalog 'coordinates.txt' of the localized sources will be created in the folder RESULTS.
 
+```
+python ASID-L.py
+```
 
-For more detailed information on the trained model check out the ASID-L paper.
+It loads an image and the pre-trained model, and it outputs a catalog 'coordinates.txt' in the folder 'RESULTS'.
 
+Other parameters:
+ 
+-DATA_PATH './TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub.fits'  **_(path of the file)_**
+
+-MODEL_PATH './MODELS/TrainedModel.h5'   **_(path of the model)_**
+
+-demo_plot   **_(shows a plot with an optical patch superimposed with the locations of the sources in red)_**
+
+-CPUs  **_(number of CPUs for parallel processing)_**
+
+Here an example,
+```
+python ASID-L.py -DATA_PATH './TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub.fits' -MODEL_PATH './MODELS/TrainedModel.h5' -demo_plot
+```
 
 ### Train U-Net from scratch
 
-* Specify parameters of your choice, such as the number of epochs, the layers and the SNR cut-off modifying the file 'U_Net.py' 
-
 * To train the U-Net without additional changes run:
  ```
- python ASID-L.py 'DATA_PATH' 'MODEL_PATH' 'load_model=False'
+ python ASID-L.py -train_model
  ```
+
+Other parameters:
+
+-snr_threshold **_(SNR cut-off for the training set)_** 
+
+-epochs **_(the number of epochs)_**
+
+
+Other parameters:
+
  
 # License
 Copyright 2022 Fiorenzo Stoppa
@@ -112,4 +133,6 @@ limitations under the License.
 
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTFieldM16.png " >
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTField10396.png " >
+
+
 
