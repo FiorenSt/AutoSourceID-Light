@@ -50,7 +50,7 @@ _Follow the instructions below to download and start using ASID-L._
    ```
    [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5902893.svg)](https://doi.org/10.5281/zenodo.5902893)
 
-3. Save the files in a folder "Training Set" and include the folder in the ASID-L repository
+3. Save the files in a folder "TrainingSet" and include the folder in the ASID-L repository
 
 # Dependencies:
 <img src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white&style=plastic"/> ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white&style=plastic)
