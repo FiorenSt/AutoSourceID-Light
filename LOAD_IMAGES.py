@@ -25,4 +25,4 @@ def load_pred_images(DATA_PATH):
     patches = pat.patchify(images, (256, 256), step=256)
     patches = patches.reshape(int(dim1*dim2/256/256), 256, 256, 1)
 
-    return patches, dim1, dim2  ###final dim: (..., 256, 256, 1)
+    return patches, dim1, dim2  ###final dim: (..., 256, 256, 1) 1, 1
