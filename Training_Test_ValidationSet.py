@@ -10,7 +10,7 @@ import random
 #######################################################################
 
 def load_train_images(snr_threshold):
-    DATA_PATH = 'Training Set/'
+    DATA_PATH = 'TrainingSet/'
 
     ###load image
     images = np.zeros((10560, 10560), np.float32)
