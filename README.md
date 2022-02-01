@@ -130,6 +130,10 @@ limitations under the License.
 
 
 # Features
+
+Star cluster image retrieved from the Hubble Space Telescope archive (GO-10396, PI: J.S. Gallagher). The red circles in the zoomed windows are the locations of the sources identified by ASID-L.
+Although this is an early study, it appears that ASID-L is capable of localizing  sources without the need to re-train the U-Net on HST images. The main difference between MeerLICHT and HST, the resolution of the images, does not seem to affect the results of the method. 
+
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTField10396.png " >
 
 
