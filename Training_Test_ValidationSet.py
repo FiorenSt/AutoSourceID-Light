@@ -58,6 +58,7 @@ def load_train_images(snr_threshold):
 
     ########################################################################################################################
 
+    ###load image
     images = np.zeros((10560, 10560), np.float32)
     fit = fits.open(DATA_PATH + 'ML1_20210401_173445_red_cosmics_nobkgsub.fits')
     images[:, :] = fit[0].data
@@ -98,6 +99,7 @@ def load_train_images(snr_threshold):
 
     ########################################################################################################################
 
+    ###load image
     images = np.zeros((10560, 10560), np.float32)
     fit = fits.open(DATA_PATH + 'ML1_20210910_022724_red_cosmics_nobkgsub.fits')
     images[:, :] = fit[0].data
