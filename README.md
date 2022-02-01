@@ -132,7 +132,7 @@ limitations under the License.
 # Features
 
 An open question that we want to address in the future is how the resolution of the images affects the localization results.
-A first promising test can be found below, we applied ASID-L, trained on MeerLICHT images, to images from the Hubble Space Telescope. The latter has a Full-Width at Half-
+A first promising test can be found below, where we applied ASID-L, trained on MeerLICHT images, to images from the Hubble Space Telescope. The latter has a Full-Width at Half-
 Maximum (FWHM) PSF of about 0.11 arcseconds, much better than the 2-3 arcseconds of MeerLICHT.
 
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTField10396.png " >
