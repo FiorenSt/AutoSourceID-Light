@@ -79,7 +79,7 @@ python ASID-L.py
 
 It loads an image and the pre-trained model, and it outputs a catalog 'coordinates.txt' in the folder 'RESULTS'.
 
-Other parameters:
+**Other parameters:**
  
 -DATA_PATH './TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub.fits'  **_(path of the file)_**
 
@@ -101,14 +101,13 @@ python ASID-L.py -DATA_PATH './TrainingSet/ML1_20200601_191800_red_cosmics_nobkg
  python ASID-L.py -train_model
  ```
 
-Other parameters:
+**Other parameters:**
 
 -snr_threshold **_(SNR cut-off for the training set)_** 
 
 -epochs **_(the number of epochs)_**
 
 
-Other parameters:
 
  
 # License
@@ -131,8 +130,13 @@ limitations under the License.
 
 # Features
 
-<img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTFieldM16.png " >
+An open question that we want to address in the future is how the resolution of the images affects the localization results.
+A first promising test can be found below, we applied ASID-L, trained on MeerLICHT images, to images from the Hubble Space Telescope. The latter has a Full-Width at Half-
+Maximum (FWHM) PSF of about 0.11 arcseconds, much better than the 2-3 arcseconds of MeerLICHT.
+
 <img src="https://github.com/FiorenSt/AutoSourceID-Light/blob/main/Plots/HSTField10396.png " >
 
+Star cluster image retrieved from the Hubble Space Telescope archive (GO-10396, PI: J.S. Gallagher). The red circles in the zoomed windows are the locations of the sources identified by ASID-L.
 
+Although this is an early study, it appears that ASID-L is capable of localizing  sources without the need to re-train the U-Net on HST images. The main difference between MeerLICHT and HST, the resolution of the images, does not seem to affect the results of the method. 
 
