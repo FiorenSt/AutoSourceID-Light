@@ -33,6 +33,7 @@ data that uses computer vision techniques that can naturally deal with large amo
 - [Usage](#usage)
 - [License](#license)
 - [Features](#features)
+- [Credits](#credits)
 
 
 # Installation
@@ -140,3 +141,8 @@ Star cluster image retrieved from the Hubble Space Telescope archive (GO-10396, 
 
 Although this is an early study, it appears that ASID-L is capable of localizing  sources without the need to re-train the U-Net on HST images. The main difference between MeerLICHT and HST, the resolution of the images, does not seem to affect the results of the method. 
 
+
+# Credits
+Credit goes to all the author of the paper: 
+
+AutoSourceID-Light. Fast Optical Source Localization via U-Net and Laplacian of Gaussian
