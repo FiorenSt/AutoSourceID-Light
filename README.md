@@ -78,11 +78,11 @@ The use of the pre-trained ASID-L is straight forward:
 python ASID-L.py
 ```
 
-It loads an image and the pre-trained model, and it outputs a catalog 'coordinates.txt' in the folder 'RESULTS'.
+It loads a .fits image and the pre-trained model, and it outputs a catalog 'coordinates.txt' in the folder 'RESULTS'.
 
 **Other parameters:**
  
--DATA_PATH './TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub.fits'  **_(path of the file)_**
+-DATA_PATH './TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub.fits'  **_(path of the .fits image)_**
 
 -MODEL_PATH './MODELS/TrainedModel.h5'   **_(path of the model)_**
 
@@ -97,11 +97,12 @@ python ASID-L.py -DATA_PATH './TrainingSet/ML1_20200601_191800_red_cosmics_nobkg
 
 ### Train U-Net from scratch
 
-* To train the U-Net without additional changes run:
+ To train the U-Net without additional changes run:
  ```
  python ASID-L.py -train_model
  ```
-
+ You will find the trained model in the folder '/MODELS/FROM_SCRATCH'. You can then run the pre-trained version of ASID-L with -MODEL_PATH your new trained model.
+ 
 **Other parameters:**
 
 -snr_threshold **_(SNR cut-off for the training set)_** 
