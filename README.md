@@ -38,9 +38,6 @@ _Follow the instructions below to download and start using ASID-L._
    git clone https://github.com/FiorenSt/AutoSourceID-Light.git
    ```
 2. Download the Zenodo folder for training/test/validation sets 
-   ```sh
-   curl https://doi.org/10.5281/zenodo.5902893
-   ```
    [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5902893.svg)](https://doi.org/10.5281/zenodo.5902893)
 
 3. Save the files in a folder "TrainingSet" and include the folder in the ASID-L repository
