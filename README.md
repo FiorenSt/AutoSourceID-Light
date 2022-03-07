@@ -44,13 +44,15 @@ _Follow the instructions below to download and start using ASID-L._
 4. Create an empty folder "RESULTS" 
 
 # Dependencies:
+<!--
 <img src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white&style=plastic"/> ![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white&style=plastic)
 ![Keras](https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white&style=plastic)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white&style=plastic)
 ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white&style=plastic)
+-->
 
 * Python 3 (or superior)
-* TensorFlow 2.5
+* TensorFlow 2 
 * Scikit-Image 0.18.1
 * Numpy 1.20.3
 * Joblib 1.0.1
@@ -58,6 +60,8 @@ _Follow the instructions below to download and start using ASID-L._
 * OpenCV 4.5.1
 * Astropy 4.2.1
 
+This combination of packages' versions works on most Windows and Linux computers, however other versions of the packages might also work.
+If the problem persist please raise an issue and we will help you solve it.
 
 
 # Usage
