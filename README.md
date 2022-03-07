@@ -60,8 +60,8 @@ _Follow the instructions below to download and start using ASID-L._
 * OpenCV 4.5.1
 * Astropy 4.2.1
 
-This combination of packages' versions works on most Windows and Linux computers, however other versions of the packages might also work.
-If the problem persist please raise an issue and we will help you solve it.
+This combination of package versions works on most Windows and Linux computers, however other package versions may also work.
+If the problem persist, raise an issue and we will help you solve it.
 
 
 # Usage
