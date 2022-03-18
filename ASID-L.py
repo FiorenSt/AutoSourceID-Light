@@ -62,13 +62,13 @@ def ASID_L():
         import matplotlib.pyplot as plt
         from astropy.visualization import ZScaleInterval as zscale
 
-        blobs_log = blob_log(pred[100,:,:,0],min_sigma=1.43, max_sigma=1.43, num_sigma=1, threshold=.2,  exclude_border=False, overlap=0.8)
+        blobs_log = blob_log(pred[0,:,:,0],min_sigma=1.43, max_sigma=1.43, num_sigma=1, threshold=.2,  exclude_border=False, overlap=0.8)
 
         color = 'red'
 
         fig,ax =plt.subplots(1,1, figsize=(8,8), sharex=True, sharey=True)
-        vmin, vmax = zscale().get_limits(image_in_patches[100,:,:,0])
-        plt.imshow(image_in_patches[100,:,:,0], vmin=vmin, vmax=vmax,origin='lower')
+        vmin, vmax = zscale().get_limits(image_in_patches[0,:,:,0])
+        plt.imshow(image_in_patches[0,:,:,0], vmin=vmin, vmax=vmax,origin='lower')
 
         for blob in blobs_log:
             y, x, r = blob
