@@ -20,7 +20,7 @@ import tensorflow as tf
 
 
 
-def ASID_L(DATA_PATH='./TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub.fits',
+def ASID_L_loc(DATA_PATH='./TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub.fits',
            MODEL_PATH='./MODELS/TrainedModel.h5',
            train_model=False,
            demo_plot=False,
@@ -48,8 +48,8 @@ def ASID_L(DATA_PATH='./TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub.fit
 
     ###Laplacian of Gaussian
     d=joblib_loop(pred=pred,n_patches_x=n_patches_x,n_patches_y=n_patches_y,CPUs=CPUs)
-    list = np.array([item for sublist in d for item in sublist]) + 1   ##+1 because coordinates start from 1, not 0
-    np.savetxt('./RESULTS/coordinates.txt', list,delimiter=',', fmt='%i')
+    list = np.array([item for sublist in d for item in sublist]) 
+    return(list)
 
 
     ###DEMO PLOT TO CHECK THE RESULTS
