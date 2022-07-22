@@ -27,10 +27,11 @@ def ASID_L_loc(DATA_PATH='./TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub
            epochs=10,
            snr_threshold=3,
            CPUs=1,
+           hdu=1
            ):
 
     ###load image to predict on
-    image_in_patches, dim1, dim2 = load_pred_images(DATA_PATH)  ### dim.: (..., 256, 256, 1) ,  1,  1
+    image_in_patches, dim1, dim2 = load_pred_images(DATA_PATH,hdu)  ### dim.: (..., 256, 256, 1) ,  1,  1
 
     ###load model
     if train_model:
@@ -43,12 +44,11 @@ def ASID_L_loc(DATA_PATH='./TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub
     ###U-Net prediction
     pred = U_net.predict(x=image_in_patches)  ### dim.: (..., 256, 256, 1)
 
-    n_patches_x=int(dim1/256)
-    n_patches_y=int(dim2/256)
-
     ###Laplacian of Gaussian
-    d=joblib_loop(pred=pred,n_patches_x=n_patches_x,n_patches_y=n_patches_y,CPUs=CPUs)
-    list = np.array([item for sublist in d for item in sublist]) 
+    grid = np.array([(x, y) for x in range(0, dim1, 256) for y in range(0, dim2, 256)])
+    d=joblib_loop(pred=pred,grid=grid,CPUs=CPUs)
+    list = np.array([item for sublist in d for item in sublist])
+
     return(list)
 
 
@@ -80,23 +80,24 @@ def ASID_L_loc(DATA_PATH='./TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub
 #  LOAD IMAGES WE WANT TO LOCALIZE  #
 #####################################
 
-def load_pred_images(DATA_PATH):
+def load_pred_images(DATA_PATH, hdu = 1):
 
     ###load fits file
-    fit = fits.open(DATA_PATH)[0].data
+    fit = fits.open(DATA_PATH)[hdu].data
 
     ###normalization
     fit = (fit - np.mean(fit)) / np.sqrt(np.var(fit))
 
     ###ensure that the image is divisible by 256
     dim1 = fit.shape[0] + (256 - fit.shape[0] % 256)
-    dim2 = fit.shape[1] + (256 - fit.shape[0] % 256)
+    dim2 = fit.shape[1] + (256 - fit.shape[1] % 256)
     images = np.zeros((dim1, dim2), np.float32)
+
     images[0:fit.shape[0],0:fit.shape[1]]= fit
 
     ###patchify in 256x256
     patches = pat.patchify(images, (256, 256), step=256)
-    patches = patches.reshape(int(dim1*dim2/256/256), 256, 256, 1)
+    patches = patches.reshape(patches.shape[0]*patches.shape[1], 256, 256, 1)
 
     return patches, dim1, dim2  ###final dim: (..., 256, 256, 1) 1, 1
 
@@ -193,7 +194,6 @@ def dice_BCE_loss(y_true, y_pred, smooth=1e-4):
 
 
 
-
 #####################################
 #  LOAD U_NET MODULE FROM .h5 FILE  #
 #####################################
@@ -207,27 +207,25 @@ def LOAD_UNET(filepath):
 #  Loop for parallelization   #
 ###############################
 
-def task(image, i, n_patches_x, n_patches_y):
+def task(image, i, grid):
 
     ###LoG step
     blobs_log = blob_log(image, min_sigma=1.43, max_sigma=1.43, num_sigma=1, threshold=.2,
                          exclude_border=False, overlap=0.8)
 
     ###from patch coordinates to full image coordinates
-    x_idx = (i % n_patches_x) * 256
-    y_idx = int(i / n_patches_y) * 256
-    x_coord = x_idx + blobs_log[:, 1]
-    y_coord = y_idx + blobs_log[:, 0]
-    return np.column_stack((x_coord,y_coord))
+    coord=grid[i,[1,0]]+ blobs_log[:,[1,0]]
+    return coord
+
+
 
 
 ######################
 #  Parallelization   #
 ######################
 
-def joblib_loop(pred,n_patches_x,n_patches_y,CPUs=1):
-    return Parallel(n_jobs=CPUs)(delayed(task)(pred[i,:,:,0],i,n_patches_x,n_patches_y) for i in range(0,pred.shape[0]))
-
+def joblib_loop(pred,grid,CPUs):
+    return Parallel(n_jobs=CPUs)(delayed(task)(pred[i,:,:,0],i,grid) for i in range(0,pred.shape[0]))
 
 
 
