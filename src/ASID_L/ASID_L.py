@@ -1,4 +1,3 @@
-
 #
 #                          ###           ######       ###      ### ##                ##
 #                         #####         ##            ###      ###  ###              ##
@@ -15,8 +14,10 @@ from skimage.feature import blob_log
 from joblib import Parallel, delayed
 from astropy.io import fits
 import patchify as pat
-import sys
+import os
 import tensorflow as tf
+import random
+import cv2
 
 
 
@@ -77,7 +78,7 @@ def ASID_L_loc(DATA_PATH='./TrainingSet/ML1_20200601_191800_red_cosmics_nobkgsub
 
 
 #####################################
-#  LOAD IMAGES WE WANT TO LOCALIZE  #
+#  LOAD IMAGES YOU WANT TO LOCALIZE #
 #####################################
 
 def load_pred_images(DATA_PATH, hdu = 1):
@@ -85,8 +86,8 @@ def load_pred_images(DATA_PATH, hdu = 1):
     ###load fits file
     fit = fits.open(DATA_PATH)[hdu].data
 
-    ###normalization
-    fit = (fit - np.mean(fit)) / np.sqrt(np.var(fit))
+    ###standardize
+    fit = (fit - np.mean(fit))/np.sqrt(np.var(fit))
 
     ###ensure that the image is divisible by 256
     dim1 = fit.shape[0] + (256 - fit.shape[0] % 256)
@@ -104,6 +105,9 @@ def load_pred_images(DATA_PATH, hdu = 1):
 
 
 
+#######################
+#   U-NET framework   #
+#######################
 
 def unet(inputs):
     s = inputs
@@ -230,7 +234,7 @@ def joblib_loop(pred,grid,CPUs):
 
 
 ###############
-# BUILD U-NET #
+# Build U-NET #
 ###############
 
 def RUN_UNET(training,training_mask,validation,validation_mask,epochs=2):
@@ -246,10 +250,8 @@ def RUN_UNET(training,training_mask,validation,validation_mask,epochs=2):
     U_net=unet(inputs)
 
     ###Compile Model
-
     reduce_lr = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss', factor=0.8, patience=5, min_lr=1e-6, verbose=1)
     save_checkpoint3 = tf.keras.callbacks.ModelCheckpoint('./MODELS/FROM_SCRATCH/TrainedModel_from_scratch.h5', verbose=1, save_best_only=True, monitor='val_loss')
-
     U_net.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=5e-4), loss=dice_BCE_loss, metrics=['accuracy' , dice_coeff])
     U_net.summary()
 
@@ -257,6 +259,7 @@ def RUN_UNET(training,training_mask,validation,validation_mask,epochs=2):
     history=U_net.fit(x=training, y=training_mask,validation_data= (validation,validation_mask), batch_size=32,epochs=epochs, verbose=1, shuffle=True,
                                     callbacks=[save_checkpoint3, reduce_lr])
 
+    return history
 
 
 
@@ -266,173 +269,88 @@ def RUN_UNET(training,training_mask,validation,validation_mask,epochs=2):
 #######################################################################
 
 def load_train_images(snr_threshold):
-    DATA_PATH = 'TrainingSet/'
+    DATA_PATH = 'Training Set 3/'
 
-    ###load image
-    images = np.zeros((10560, 10560), np.float32)
-    fit = fits.open(DATA_PATH + 'ML1_20200601_191800_red_cosmics_nobkgsub.fits')
-    images[:, :] = fit[0].data
+    img_files = [f for f in os.listdir(DATA_PATH) if f.endswith('nobkgsub.fits')]
+    cat_files = [f for f in os.listdir(DATA_PATH) if f.endswith('_SNR_redimage.fits')]
 
-    ###cut edges
-    images = images[32:10528, 32:10528]
+    training_images = np.empty((0, 256, 256, 1))
+    training_mask = np.empty((0, 256, 256, 1))
 
-    ###normalization
-    images = (images - np.mean(images)) / np.sqrt(np.var(images))
+    for i, file in enumerate(img_files):
+        # print(i,file)
 
-    ###make patches
-    patches = pat.patchify(images, (256, 256), step=256)
-    patches200136 = patches.reshape(1681, 256, 256, 1)  #dim: (1681, 256, 256, 1)
+        ###OPEN IMAGE
+        fit = fits.open(DATA_PATH + file)
+        images = fit[0].data
 
-    ###load locations
-    red_cat = fits.open(DATA_PATH + 'ML1_20200601_191800_GaiaEDR3_cat_SNR_redimage.fits')
+        ###REMOVE EDGES FOR MEERLICHT IMAGES
+        images = images[32:10528, 32:10528]
 
-    x_pos = red_cat[1].data['X_POS'] - 1
-    y_pos = red_cat[1].data['Y_POS'] - 1
+        ###standardize
+        images = (images - np.mean(images)) / np.sqrt(np.var(images))
 
-    ###save snr
-    snr = red_cat[1].data['snr']
-    x_pos = x_pos[snr >= snr_threshold]
-    y_pos = y_pos[snr >= snr_threshold]
+        ###CREATE PATCHES
+        patches = pat.patchify(images, (256, 256), step=256)
+        patches = patches.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
+        patches.shape
 
-    positions = np.vstack((x_pos, y_pos)).T
+        training_images = np.append(training_images, patches, axis=0)
+        training_images.shape
 
-    mask = np.zeros((10560, 10560), np.uint8)
+        ###OPEN TRUE LOCATIONS CATALOGS
+        red_cat = fits.open(DATA_PATH + cat_files[i])  ##SYNTH CATALOG, REAL SNR
+        x_pos = red_cat[1].data['X_POS'] - 1
+        y_pos = red_cat[1].data['Y_POS'] - 1
 
-    array_of_tuples = map(tuple, np.around(positions).astype(int))
-    locations = tuple(array_of_tuples)
+        ###ADDITIONAL INFO AND MAGNITUDE CORRECTION
+        snr = red_cat[1].data['snr']
+        magnitude = red_cat[1].data['phot_g_mean_mag']
+        snr[magnitude <= 11] = 1000
 
-    ###create mask
-    for location in locations:
-        cv2.circle(mask, location, 2, (1, 1, 1), -1)
+        ###S/N CUT
+        x_pos = x_pos[snr >= snr_threshold]
+        y_pos = y_pos[snr >= snr_threshold]
+        positions = np.vstack((x_pos, y_pos)).T
 
-    mask = mask[32:10528, 32:10528]
+        ###CREATE FULL MASK IMAGE
+        mask = np.zeros((10560, 10560), np.uint8)
+        for pos in positions:
+            cv2.circle(mask, tuple(np.round(pos).astype(int)), 2, (1, 1, 1), -1)
 
-    ###make patches for the masks
-    mask = pat.patchify(mask, (256, 256), step=256)
-    mask200136 = mask.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
+        ###CUT THE EDGES FOR MEERLICHT MASK
+        mask = mask[32:10528, 32:10528]
+        mask = pat.patchify(mask, (256, 256), step=256)
+        mask = mask.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
 
+        training_mask = np.append(training_mask, mask, axis=0)
 
-    ########################################################################################################################
-
-    ###load image
-    images = np.zeros((10560, 10560), np.float32)
-    fit = fits.open(DATA_PATH + 'ML1_20210401_173445_red_cosmics_nobkgsub.fits')
-    images[:, :] = fit[0].data
-
-    images = images[32:10528, 32:10528]
-    images = (images - np.mean(images)) / np.sqrt(np.var(images))
-
-    patches = pat.patchify(images, (256, 256), step=256)
-
-    patches175442 = patches.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
-
-    ### MASK
-    red_cat = fits.open(DATA_PATH + 'ML1_20210401_173445_GaiaEDR3_cat_SNR_redimage.fits')
-
-    x_pos = red_cat[1].data['X_POS'] - 1
-    y_pos = red_cat[1].data['Y_POS'] - 1
-
-    snr = red_cat[1].data['snr']
-
-    x_pos = x_pos[snr >= snr_threshold]
-    y_pos = y_pos[snr >= snr_threshold]
-
-    positions = np.vstack((x_pos, y_pos)).T
-
-    mask = np.zeros((10560, 10560), np.uint8)
-
-    array_of_tuples = map(tuple, np.around(positions).astype(int))
-    locations = tuple(array_of_tuples)
-
-    for location in locations:
-        cv2.circle(mask, location, 2, (1, 1, 1), -1)
-
-    mask = mask[32:10528, 32:10528]
-
-    mask = pat.patchify(mask, (256, 256), step=256)
-    mask175442 = mask.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
-
-
-    ########################################################################################################################
-
-    ###load image
-    images = np.zeros((10560, 10560), np.float32)
-    fit = fits.open(DATA_PATH + 'ML1_20210910_022724_red_cosmics_nobkgsub.fits')
-    images[:, :] = fit[0].data
-
-    images = images[32:10528, 32:10528]
-    images = (images - np.mean(images)) / np.sqrt(np.var(images))
-
-    patches = pat.patchify(images, (256, 256), step=256)
-
-    patches174042 = patches.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
-
-    #### MASK
-    red_cat = fits.open(DATA_PATH + 'ML1_20210910_022724_GaiaEDR3_cat_SNR_redimage.fits')
-
-    x_pos = red_cat[1].data['X_POS'] - 1
-    y_pos = red_cat[1].data['Y_POS'] - 1
-
-    snr = red_cat[1].data['snr']
-
-    x_pos = x_pos[snr >= snr_threshold]
-    y_pos = y_pos[snr >= snr_threshold]
-
-    positions = np.vstack((x_pos, y_pos)).T
-
-    mask = np.zeros((10560, 10560), np.uint8)
-
-    array_of_tuples = map(tuple, np.around(positions).astype(int))
-    locations = tuple(array_of_tuples)
-
-    for location in locations:
-        cv2.circle(mask, location, 2, (1, 1, 1), -1)
-
-    mask = mask[32:10528, 32:10528]
-
-    mask = pat.patchify(mask, (256, 256), step=256)
-
-    mask174042 = mask.reshape(1681, 256, 256, 1)  # .transpose(1,2,0)
-
-    #################FINAL PATCHES AND MASKS
-    training = np.row_stack((patches200136, patches174042, patches175442))
-
-    training_mask = np.row_stack((mask200136, mask174042, mask175442))
-
-    #############################################################   TEST SET   #####################################################################################
+    ###TEST SET
     random.seed(2)
 
     index1 = [118, 800, 1000]
-    index2 = random.sample(range(0, 5043), 502)
+    index2 = random.sample(range(0, 5043), 501)
     index = index1 + index2
 
-    test = training[index, :, :, :]
+    test_images = training_images[index, :, :, :]
     test_mask = training_mask[index, :, :, :]
 
     ###REMOVE IMAGES FROM TRANING
-    training = np.delete(training, (index), axis=0)
+    training_images = np.delete(training_images, (index), axis=0)
     training_mask = np.delete(training_mask, (index), axis=0)
 
-    training.shape
+    ###VALIDATION SET
+    random.seed(2)
+    index = random.sample(range(0, 4539), 504)
 
-    #############################################################  VALIDATION SET ######################################################
-
-    random.seed(1)
-    index = random.sample(range(0, 4539), 506)
-
-    validation = training[index, :, :, :]
+    validation_images = training_images[index, :, :, :]
     validation_mask = training_mask[index, :, :, :]
 
     ###REMOVE IMAGES FROM TRANING
-    training = np.delete(training, (index), axis=0)
+    training_images = np.delete(training_images, (index), axis=0)
     training_mask = np.delete(training_mask, (index), axis=0)
 
-    return training, training_mask, test, test_mask, validation, validation_mask
-
-
-
-
-
+    return training_images, training_mask, test_images, test_mask, validation_images, validation_mask
 
 
 
